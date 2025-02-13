@@ -16,11 +16,12 @@ class MainWindow(QMainWindow):
         self.map_ll = [37.621202, 55.753544]
         self.map_l = "map"
         self.api_server = "https://static-maps.yandex.ru/1.x/"
+        self.flag = False
         self.refresh_map()
-        self.push_button(self.set_)
-        self.push_button_2(self.set_sat)
-        self.push_button_3(self.set_gibrid)
-        self.push_button_4(self.search)
+        self.pushButton.clicked.connect(self.set_map)
+        self.pushButton_2.clicked.connect(self.set_sat)
+        self.pushButton_3.clicked.connect(self.set_gibrid)
+        self.pushButton_4.clicked.connect(self.search)
 
     def keyPressEvent(self, event):
         ## Другие кнопки кроме цифр не работают!!!!
@@ -36,6 +37,21 @@ class MainWindow(QMainWindow):
             self.map_ll[1] += self.delte
         if event.key() == Qt.Key.Key_4:
             self.map_ll[1] -= self.delte
+        self.refresh_map()
+
+    def search(self):
+        pass
+
+    def set_sat(self):
+        self.map_l = "sat"
+        self.refresh_map()
+
+    def set_map(self):
+        self.map_l = "map"
+        self.refresh_map()
+
+    def set_gibrid(self):
+        self.map_l = "sat,skl"
         self.refresh_map()
 
 
@@ -60,3 +76,4 @@ if __name__ == "__main__":
     window = MainWindow()
     window.show()
     sys.exit(app.exec())
+
